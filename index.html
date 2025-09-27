@@ -1,6 +1,3 @@
-Отлично! Добавляю новый товар Apple в категорию Headphones. Вот полностью обновленный код:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,13 +35,6 @@
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 10px;
-        }
-
-        .tagline {
-            font-size: 1.1rem;
-            color: #666666;
-            max-width: 600px;
-            margin: 0 auto;
         }
 
         .search-section {
@@ -225,7 +215,6 @@
     <div class="container">
         <header>
             <div class="logo">Pure Home</div>
-            <p class="tagline">Curated home essentials that simplify your life and bring joy to your space</p>
         </header>
         
         <div class="search-section">
@@ -363,7 +352,6 @@
                 </div>
             </div>
 
-            <!-- NEW PRODUCT: Apple Headphones -->
             <!-- Apple Headphones -->
             <div class="product-card" data-category="tech audio" data-title="apple airpods headphones wireless bluetooth">
                 <div class="product-image-container">
@@ -395,4 +383,105 @@
             <!-- Vesgantti -->
             <div class="product-card" data-category="furniture" data-title="vesgantti furniture home decor modern">
                 <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Vesgantti Furniture" class
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Vesgantti Furniture" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Vesgantti Modern Furniture | Stylish Home Decor Solutions</div>
+                    <div class="product-category">Furniture</div>
+                    <a href="https://amzn.to/429MiR3" class="buy-button" target="_blank">Buy on Amazon</a>
+                </div>
+            </div>
+
+            <!-- Outdoor Recreation -->
+            <!-- STANLEY -->
+            <div class="product-card" data-category="outdoor" data-title="stanley outdoor adventure gear camping equipment">
+                <div class="product-image-container">
+                    <img src="https://i.postimg.cc/50h2PZZD/photo-2025-09-26-17-22-52.jpg" alt="STANLEY Outdoor Adventure Gear" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">STANLEY Outdoor Adventure Gear | Premium Camping & Recreation Equipment</div>
+                    <div class="product-category">Outdoor Recreation • Camping</div>
+                    <div class="price-container">
+                        <span class="price-badge">ADVENTURE READY</span>
+                    </div>
+                    <a href="https://amzn.to/4h2lxEB" class="buy-button" target="_blank">Buy on Amazon</a>
+                </div>
+            </div>
+
+            <!-- Beauty & Care Products -->
+            <!-- CeraVe -->
+            <div class="product-card" data-category="beauty" data-title="cerave eye repair cream under eye treatment dark circles">
+                <div class="product-image-container">
+                    <img src="https://i.postimg.cc/LhKGqD5n/photo-2025-08-30-14-03-37.jpg" alt="CeraVe Eye Repair Cream" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">CeraVe Eye Repair Cream | Under Eye Treatment for Dark Circles</div>
+                    <div class="product-category">Beauty & Personal Care</div>
+                    <a href="https://amzn.to/4n3PiHf" class="buy-button" target="_blank">Buy on Amazon</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            No products found matching your search.
+        </div>
+        
+        <div class="disclaimer">
+            As an Amazon Associate I earn from qualifying purchases.
+        </div>
+    </div>
+
+    <script>
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        function filterProducts(category) {
+            currentFilter = category;
+            applyFilters();
+            
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        function searchProducts() {
+            currentSearch = document.querySelector('.search-box').value.toLowerCase();
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const products = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
+            products.forEach(product => {
+                const categoryMatch = currentFilter === 'all' || 
+                                    product.getAttribute('data-category').includes(currentFilter);
+                const searchMatch = product.getAttribute('data-title').includes(currentSearch) || 
+                                  currentSearch === '';
+
+                if (categoryMatch && searchMatch) {
+                    product.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Add smooth scrolling for better UX
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: document.querySelector('.product-grid').offsetTop - 50,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
